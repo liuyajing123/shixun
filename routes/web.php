@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('/admin')->group(function() {
+    Route::get('/admin','adminController@admin');
+    Route::get('/login','adminController@login');
+    Route::post('/do_login','adminController@do_login');
+});
