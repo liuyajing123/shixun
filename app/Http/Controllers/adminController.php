@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Http\Tool\wechat;
 use GuzzleHttp\Client;
+use Qiniu\Auth;
 class adminController extends Controller
 {
     public $wecaht;
@@ -165,5 +166,108 @@ class adminController extends Controller
     /*
      * 公众号菜单
      */
+//  添加视图
+    public function add_menu()
+    {
+        return view('menu/add_menu');
+    }
+//    添加菜单
+    public function create_menu(Request $request)
+    {
+        $req = $request->all();
+        $button_type = !empty($req['name2'])?2:1;
+        $res = DB::table('menu')->insert([
+            'name1'=>$req['name1'],
+            'name2'=>$req['name2'],
+            'type'=>$req['type'],
+            'button_type'=>$button_type,
+            'event_value'=>$req['event_value']
+        ]);
+        if($res){
+            echo "<script>alert('创建成功！');location.href='/admin/list_menu';</script>";die;
+        }else{
+            echo "<script>alert('创建失败！');location.href='/admin/list_menu';</script>";die;
+        }
+        //根据表数据翻译成菜单结构
+        $this->load_menu();
+        return view('menu/menu_list');
+    }
+//    菜单列表
+    public function list_menu()
+    {
+        $info = DB::table('menu')->orderBy('name1','asc','name2','asc')->get();
+        return view('menu/list_menu',['info'=>$info]);
+    }
+    /**
+     * 根据数据库表数据刷新菜单
+     */
+    public function load_menu()
+    {
+        $data = [];
+        $menu_list = DB::table('menu')->select(['name1'])->groupBy('name1')->get();
+        foreach($menu_list as $vv){
+            $menu_info = DB::table('menu')->where(['name1'=>$vv->name1])->get();
+            $menu = [];
+            foreach ($menu_info as $v){
+                $menu[] = (array)$v;
+            }
+            $arr = [];
+            foreach($menu as $v){
+                if($v['button_type'] == 1){ //普通一级菜单
+                    if($v['type'] == 1){ //click
+                        $arr = [
+                            'type'=>'click',
+                            'name'=>$v['name1'],
+                            'key'=>$v['event_value']
+                        ];
+                    }elseif($v['type'] == 2){//view
+                        $arr = [
+                            'type'=>'view',
+                            'name'=>$v['name1'],
+                            'url'=>$v['event_value']
+                        ];
+                    }
+                }elseif($v['button_type'] == 2){ //带有二级菜单的一级菜单
+                    $arr['name'] = $v['name1'];
+                    if($v['type'] == 1){ //click
+                        $button_arr = [
+                            'type'=>'click',
+                            'name'=>$v['name2'],
+                            'key'=>$v['event_value']
+                        ];
+                    }elseif($v['type'] == 2){//view
+                        $button_arr = [
+                            'type'=>'view',
+                            'name'=>$v['name2'],
+                            'url'=>$v['event_value']
+                        ];
+                    }
+                    $arr['sub_button'][] = $button_arr;
+                }
+            }
+            $data['button'][] = $arr;
+        }
+        $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->wechat->get_access_token();
+//        dd($url);
 
+        $re = $this->wechat->curl_post($url,json_encode($data,JSON_UNESCAPED_UNICODE));
+//        dd($re);
+        $result = json_decode($re,1);
+        dd($result);
+    }
+	//    上传七牛云视图
+    public function upload_thumb()
+    {
+        return view('upload/upload_thumb');
+    }
+//    获取七牛云token
+    public function do_upload_thumb()
+    {
+        include '../qiniu/autoload.php';
+        $ak="3bViR9XjnUhXVr0XLAsiANKls6gxUQcHERc9Tq3U";
+        $sk="J4gIGttvTR_7dFglunP2Yroart-zwpEoGjMtd51Z";
+        $bucket="liuyajing";
+        $obj=new Auth($ak,$sk);
+        echo $obj->uploadToken($bucket);
+    }
 }

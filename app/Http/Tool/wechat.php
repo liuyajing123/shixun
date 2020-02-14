@@ -95,4 +95,16 @@ class wechat
         unlink($path);
         return $body;
     }
+    public function curl_post($url,$data)
+    {
+        $curl = curl_init($url);
+        curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
+        curl_setopt($curl,CURLOPT_POST,true);  //发送post
+        curl_setopt($curl,CURLOPT_POSTFIELDS,$data);
+        $data = curl_exec($curl);
+        $errno = curl_errno($curl);  //错误码
+        $err_msg = curl_error($curl); //错误信息
+        curl_close($curl);
+        return $data;
+    }
 }

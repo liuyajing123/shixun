@@ -29,5 +29,15 @@ Route::prefix('/admin')->group(function() {
     Route::get('/update_cate/{id}','adminController@update_cate');//分类修改
     Route::post('/update','adminController@update');//分类修改
     Route::get('/upload_thumb','adminController@upload_video');//轮播图上传
-    Route::post('/do_upload_thumb','adminController@do_upload_thumb');//轮播图上传执行
+    Route::get('/do_upload_thumb','adminController@do_upload_thumb');//轮播图上传执行
+    Route::get('/add_menu','adminController@add_menu');//添加菜单
+    Route::post('/create_menu','adminController@create_menu');//添加菜单执行
+    Route::get('/list_menu','adminController@list_menu');//菜单列表
+    Route::get('/load_menu','adminController@load_menu');//刷新
+});
+
+Route::prefix('/mianshi')->group(function(){
+    Route::get('/add','mianshi\testController@add');
+    Route::post('/do_add','mianshi\testController@do_add');
+    Route::get('/index','mianshi\testController@index');
 });

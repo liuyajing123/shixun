@@ -7,11 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="stylesheet" href="{{asset('css/font.css')}}">
-    <link rel="stylesheet" href="{{asset('css/xadmin.css')}}">
+    <link rel="stylesheet" href="{{asset('/css/font.css')}}">
+    <link rel="stylesheet" href="{{asset('/css/xadmin.css')}}">
     <!-- <link rel="stylesheet" href="./css/theme5.css"> -->
-    <script src="{{asset('lib/layui/layui.js')}}" charset="utf-8"></script>
-    <script type="text/javascript" src="{{asset('js/xadmin.js')}}"></script>
+    <script src="{{asset('/lib/layui/layui.js')}}" charset="utf-8"></script>
+    <script type="text/javascript" src="{{asset('/js/xadmin.js')}}"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -78,8 +78,8 @@
         <ul id="nav">
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="视频管理模块">&#xe6b8;</i>
-                    <cite>视频管理模块</cite>
+                    <i class="iconfont left-nav-li" lay-tips="视频上传模块">&#xe6b8;</i>
+                    <cite>视频上传模块</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
@@ -91,8 +91,8 @@
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="分类管理">&#xe723;</i>
-                    <cite>分类管理</cite>
+                    <i class="iconfont left-nav-li" lay-tips="分类模块">&#xe723;</i>
+                    <cite>分类模块</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
@@ -107,17 +107,44 @@
                     </li>
                 </ul>
             </li>
-
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="轮播图模块">&#xe726;</i>
-                    <cite>轮播图</cite>
+                    <i class="iconfont left-nav-li" lay-tips="轮播图模块">&#xe723;</i>
+                    <cite>轮播图模块</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
-                        <a onclick="xadmin.add_tab('上传轮播图','{{url('admin/upload_thumb')}}')">
+                        <a onclick="xadmin.add_tab('轮播图上传','{{url('admin/upload_thumb')}}')">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>上传轮播图</cite></a>
+                            <cite>轮播图上传</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('获取七牛云token','{{url('admin/do_upload_thumb')}}')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>获取七牛云token</cite></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont left-nav-li" lay-tips="公众号菜单生成">&#xe726;</i>
+                    <cite>公众号菜单生成</cite>
+                    <i class="iconfont nav_right">&#xe697;</i></a>
+                <ul class="sub-menu">
+                    <li>
+                        <a onclick="xadmin.add_tab('添加菜单','{{url('admin/add_menu')}}')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>添加菜单</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('菜单列表','{{url('admin/list_menu')}}')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>菜单列表</cite></a>
+                    </li>
+                    <li>
+                        <a onclick="xadmin.add_tab('刷新菜单','{{url('admin/load_menu')}}')">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>刷新菜单</cite></a>
                     </li>
                 </ul>
             </li>
