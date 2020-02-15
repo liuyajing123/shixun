@@ -37,7 +37,14 @@ Route::prefix('/admin')->group(function() {
 });
 
 Route::prefix('/mianshi')->group(function(){
-    Route::get('/add','mianshi\testController@add');
-    Route::post('/do_add','mianshi\testController@do_add');
-    Route::get('/index','mianshi\testController@index');
+    Route::get('/admin','mianshi\testController@admin');//后台管理员登录
+    Route::post('do_admin','mianshi\testController@do_admin');//后台管理员登录执行
+    Route::get('/admin_add','mianshi\testController@admin_add');//后台添加用户
+    Route::post('/do_admin_add','mianshi\testController@do_admin_add');//后台添加前台用户执行
+    Route::get('/admin_list','mianshi\testController@admin_list');//后台添加前台用户列表
+    Route::get('/login','mianshi\testController@login');//前台登录
+    Route::post('/do_login','mianshi\testController@do_login');//前台登录执行
+    Route::get('/add','mianshi\testController@add');//面试添加
+    Route::post('/do_add','mianshi\testController@do_add');//添加执行
+    Route::get('/index','mianshi\testController@index');//面试列表
 });
