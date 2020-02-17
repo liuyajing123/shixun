@@ -11,7 +11,7 @@
 <form action="{{url('mianshi/do_admin')}}" method="post">
     用户名：<input type="text" name="name" id=""></br>
     密码：<input type="password" name="password" id=""><br>
-    <input type="submit" value="添加">
+    <input type="submit" value="登录">
 </form>
 </body>
 </html>
