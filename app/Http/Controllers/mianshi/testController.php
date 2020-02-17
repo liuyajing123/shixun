@@ -84,7 +84,7 @@ class testController extends Controller
             'password'=>$pwd
         ]);
         if ($res) {
-            echo "<script>alert('添加成功');location.href='/mianshi/admin_list';</script>";
+            echo "<script>alert('添加成功');location.href='/mianshi/login';</script>";
         } else {
             echo "<script>alert('添加失败');location.href='/mianshi/admin_add';</script>";
         }
